@@ -37,5 +37,5 @@ git restore .
 
 ## Other
 
-- [Video demo]()
-- [Project report]()
+- [Video demo](https://drive.google.com/drive/folders/1_Qmh8ixdp_covWuIcR-NAUW1eaX_UYhQ?usp=sharing)
+<!-- - [Project report]() -->
