@@ -37,5 +37,6 @@ git restore .
 
 ## Other
 
-- [Video demo](https://drive.google.com/drive/folders/1_Qmh8ixdp_covWuIcR-NAUW1eaX_UYhQ?usp=sharing)
+- [Video demo](https://youtu.be/oNgXXBbTvpo)
+- [Milestone Report](Assignment%202%20Documentation.pdf)
 <!-- - [Project report]() -->
