@@ -39,4 +39,5 @@ git restore .
 
 - [Video demo](https://youtu.be/oNgXXBbTvpo)
 - [Milestone Report](Assignment%202%20Documentation.pdf)
-<!-- - [Project report]() -->
+- [Project Report](Assignment%202%20Report.pdf)
+- [User Manual](Assignment%202%20User%20Manual.pdf)
