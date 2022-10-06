@@ -37,7 +37,7 @@ git restore .
 
 ## Other
 
-- [Video demo](https://youtu.be/oNgXXBbTvpo)
+- [Video demo](https://www.youtube.com/watch?v=eR2cUhMWIfg)
 - [Milestone Report](Assignment%202%20Documentation.pdf)
 - [Project Report](Assignment%202%20Report.pdf)
 - [User Manual](Assignment%202%20User%20Manual.pdf)
