@@ -1,5 +1,10 @@
 {
     "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4 }",
     "editor.formatOnSave": true,
-    "explorer.autoReveal": false
+    "explorer.autoReveal": false,
+    "files.exclude": {
+        "**/*.import": true,
+        "**/*.obj": true,
+        "**/*.os": true
+    }
 }
