@@ -24,10 +24,10 @@ bindings:
 plugin-lab: plugin-server-lab plugin-client-lab
 
 plugin-server-lab:
-	${SCONS_LAB} ${PLUGIN_FLAGS} ${SERVER_SCONSTRUCT_FLAG} p=$(p)
+	${SCONS_LAB} ${PLUGIN_FLAGS} ${SERVER_SCONSTRUCT_FLAG} p=x11
 
 plugin-client-lab:
-	${SCONS_LAB} ${PLUGIN_FLAGS} ${CLIENT_SCONSTRUCT_FLAG} p=$(p)
+	${SCONS_LAB} ${PLUGIN_FLAGS} ${CLIENT_SCONSTRUCT_FLAG} p=x11
 
 plugin: plugin-server plugin-client
 
