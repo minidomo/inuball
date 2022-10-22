@@ -1,4 +1,4 @@
-# Assignment 2
+# Assignment 3
 
 ## Building on Lab Machines
 
@@ -37,5 +37,5 @@ git restore .
 
 ## Other
 
-- [Video demo](https://www.youtube.com/watch?v=0Tz8x0AR8bs)
+- [Video demo](https://www.youtube.com/watch?v=gef3XDT0EJc)
 - [Milestone Report](Assignment%203%20Documentation.pdf)
