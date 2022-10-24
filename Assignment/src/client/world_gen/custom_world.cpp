@@ -8,11 +8,11 @@
 #include <thread>
 
 #include "../debug.h"
+#include "../entity.h"
 #include "../gui/timer.h"
 #include "../objects/goal.h"
 #include "../objects/player.h"
 #include "../singletons/client.h"
-#include "../entity.h"
 
 void CustomWorld::_register_methods() {
     register_method("_process", &CustomWorld::_process);

@@ -3,8 +3,8 @@
 #include <SceneTree.hpp>
 
 #include "../debug.h"
-#include "../singletons/client.h"
 #include "../globals.h"
+#include "../singletons/client.h"
 
 void MainMenu::_register_methods() {
     register_method("_ready", &MainMenu::_ready);

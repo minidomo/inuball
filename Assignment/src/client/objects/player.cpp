@@ -5,8 +5,8 @@
 #include <Math.hpp>
 
 #include "../debug.h"
-#include "../util.h"
 #include "../singletons/client.h"
+#include "../util.h"
 
 void Player::_register_methods() {
     register_method("_ready", &Player::_ready);
@@ -98,14 +98,14 @@ void Player::_ready() {
 }
 
 bool Player::handle_others(float delta) {
-    if(controllable) return false;
+    if (controllable) return false;
     this->time_since_touched += delta;
-    if(this->time_since_touched > 1.0f) this->queue_free();
+    if (this->time_since_touched > 1.0f) this->queue_free();
     return true;
 }
 
 void Player::_process(float delta) {
-    if(handle_others(delta)) return;
+    if (handle_others(delta)) return;
     adapt_rotation();
     camera->set_translation(get_translation());
 }
@@ -157,7 +157,8 @@ void Player::_physics_process(float delta) {
                 .length());
     }
 
-    Client::get_singleton(this)->update_player(get_translation(), get_rotation());
+    Client::get_singleton(this)->update_player(get_translation(),
+                                               get_rotation());
 }
 
 void Player::_input(Ref<InputEvent> event) {
@@ -365,22 +366,12 @@ void Player::handle_glide(float delta) {
     }
 }
 
-void Player::set_controllable(bool cont) {
-    controllable = cont;
-}
+void Player::set_controllable(bool cont) { controllable = cont; }
 
-void Player::set_id(int64_t id) {
-    this->id = id;
-}
+void Player::set_id(int64_t id) { this->id = id; }
 
-int64_t Player::get_id() {
-    return id;
-}
+int64_t Player::get_id() { return id; }
 
-void Player::set_username(String username) {
-    this->username = username;
-}
+void Player::set_username(String username) { this->username = username; }
 
-String Player::get_username() {
-    return username;
-}
+String Player::get_username() { return username; }

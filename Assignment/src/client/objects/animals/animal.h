@@ -8,10 +8,10 @@
 #include <Input.hpp>
 #include <RigidBody.hpp>
 
-#include "../player.h"
-#include "../signals/looking_at_receiver.h"
 #include "../../globals.h"
 #include "../goal.h"
+#include "../player.h"
+#include "../signals/looking_at_receiver.h"
 #include "entity.h"
 
 using namespace godot;
@@ -28,7 +28,7 @@ typedef enum {
 template <size_t id_t>
 class Animal : public RigidBody, public LookingAtReceiver, public iGameObject {
     GODOT_CLASS(Animal, RigidBody)
-protected:
+   protected:
     bool inFocus;
     AudioStreamPlayer *interactStream;
     AudioStreamPlayer *deathStream;
@@ -40,15 +40,13 @@ protected:
     real_t time_since_update = 0;
     uint64_t entity_id;
 
-public:
+   public:
     const size_t id = id_t;
 
     static void _register_methods();
 
     void _ready();
-    void _init() {
-        this->entity_id = Entity::register_entity(this);
-    }
+    void _init() { this->entity_id = Entity::register_entity(this); }
 
     void handleLookAt(Node *player, Node *target, Vector3 point, Vector3 normal,
                       real_t distance) override {
@@ -70,19 +68,21 @@ public:
     }
 
     void _process(real_t t) { Entity::entity_process(this->entity_id); }
-    void _physics_process(real_t t) { }
+    void _physics_process(real_t t) {}
 
     virtual bool interact_secondary(Node *player) override {
         attemptbreed(this);
         return true;
     }
     virtual bool interact_primary(Node *player) override {
-        //Object::cast_to<Player>(player)->set_selected(nullptr);
+        // Object::cast_to<Player>(player)->set_selected(nullptr);
         return false;
     }
 
     virtual void entered_goal(Goal *goal) {
-        this->set_translation(Vector3(rand() / (float) RAND_MAX * GLOBALS::instance.world_size, 0.0f, rand() / (float) RAND_MAX * GLOBALS::instance.world_size));
+        this->set_translation(Vector3(
+            rand() / (float)RAND_MAX * GLOBALS::instance.world_size, 0.0f,
+            rand() / (float)RAND_MAX * GLOBALS::instance.world_size));
     }
 };
 

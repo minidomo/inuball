@@ -2,8 +2,8 @@
 #define A2_TASK_LIST_H
 
 #include <InputEvent.hpp>
-#include <VBoxContainer.hpp>
 #include <PackedScene.hpp>
+#include <VBoxContainer.hpp>
 
 #include "../common.h"
 

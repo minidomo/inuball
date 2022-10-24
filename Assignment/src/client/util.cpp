@@ -1,9 +1,9 @@
 #include "./util.h"
 
-#include <memory>
 #include <Ref.hpp>
 #include <RegEx.hpp>
 #include <RegExMatch.hpp>
+#include <memory>
 
 Vector3 Util::vector3_sign(Vector3 vector) {
     Vector3 ret(vector);
