@@ -1,19 +1,9 @@
 MAIN_DIR = Assignment
-BIN_DIR = ${MAIN_DIR}/Project/bin
-SRC_DIR = ${MAIN_DIR}/src
 SCONS_LAB = python3 /usr/bin/scons
 BINDINGS_FLAGS = -C ${MAIN_DIR}/godot-cpp -j4 bits=64
 PLUGIN_FLAGS = -C ${MAIN_DIR}
 SERVER_SCONSTRUCT_FLAG = -f SConstruct.server
 CLIENT_SCONSTRUCT_FLAG = -f SConstruct.client
-
-clean-bin:
-	rm -rf ${BIN_DIR}/win64 ${BIN_DIR}/x11 ${BIN_DIR}/osx
-
-clean-src:
-	rm -rf ${SRC_DIR}/*.obj ${SRC_DIR}/*.os
-
-clean: clean-bin clean-src
 
 bindings-lab:
 	${SCONS_LAB} ${BINDINGS_FLAGS}
