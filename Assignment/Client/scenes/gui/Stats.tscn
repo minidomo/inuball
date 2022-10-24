@@ -1,0 +1,206 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/gui/bg.png" type="Texture" id=3]
+[ext_resource path="res://scenes/gui/Time.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/gui/BAHNSCHRIFT.TTF"
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+outline_size = 2
+outline_color = Color( 0.262745, 0.768627, 0.0784314, 0.537255 )
+use_mipmaps = true
+extra_spacing_bottom = -30
+font_data = SubResource( 1 )
+
+[node name="Stats" type="NinePatchRect"]
+anchor_right = 0.277
+anchor_bottom = 0.349
+margin_right = 0.440002
+margin_bottom = 44.72
+texture = ExtResource( 3 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 22.0
+margin_right = 328.0
+margin_bottom = 267.0
+rect_min_size = Vector2( 72, 72 )
+size_flags_horizontal = 15
+size_flags_vertical = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 312.0
+margin_bottom = 30.0
+size_flags_horizontal = 15
+size_flags_vertical = 13
+
+[node name="StatsText" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_right = 312.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Stats"
+align = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="VBoxContainer"]
+margin_top = 34.0
+margin_right = 312.0
+margin_bottom = 258.0
+
+[node name="Time" parent="VBoxContainer/VSplitContainer" instance=ExtResource( 4 )]
+margin_right = 312.0
+margin_bottom = 45.0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/VSplitContainer"]
+margin_top = 57.0
+margin_right = 312.0
+margin_bottom = 224.0
+size_flags_horizontal = 15
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreRed" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_right = 60.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "0
+
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreText" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 64.0
+margin_right = 248.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Score
+
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreBlue" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 252.0
+margin_right = 312.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 1, 1 )
+text = "0
+
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChickenRed" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_top = 73.0
+margin_right = 60.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChickenText" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 73.0
+margin_right = 248.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Chicken
+"
+align = 1
+
+[node name="ChickenBlue" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 252.0
+margin_top = 73.0
+margin_right = 312.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 1, 1 )
+text = "0
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheepRed" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_top = 122.0
+margin_right = 60.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "0
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SheepText" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 64.0
+margin_top = 122.0
+margin_right = 248.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 60, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Sheep
+"
+align = 1
+
+[node name="SheepBlue" type="Label" parent="VBoxContainer/VSplitContainer/GridContainer"]
+margin_left = 252.0
+margin_top = 122.0
+margin_right = 312.0
+margin_bottom = 167.0
+rect_min_size = Vector2( 60, 30 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 1, 1 )
+text = "0
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

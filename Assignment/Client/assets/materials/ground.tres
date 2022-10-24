@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+render_mode specular_schlick_ggx;
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+
+// ScalarOp:6
+	float n_out6p0 = 1.0 - NORMAL.z;
+
+// Output:0
+	ALBEDO = vec3(0.309692, 0.921875, 0.000000);
+	ROUGHNESS = n_out6p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+
+[resource]
+shader = SubResource( 1 )

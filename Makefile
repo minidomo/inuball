@@ -1,4 +1,4 @@
-MAIN_DIR = Assignment3
+MAIN_DIR = Assignment
 BIN_DIR = ${MAIN_DIR}/Project/bin
 SRC_DIR = ${MAIN_DIR}/src
 SCONS_LAB = python3 /usr/bin/scons

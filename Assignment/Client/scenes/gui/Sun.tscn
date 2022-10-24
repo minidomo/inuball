@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/gui/moon.png" type="Texture" id=1]
+
+[node name="TextureRect" type="TextureRect"]
+anchor_right = 0.148
+anchor_bottom = 0.262
+margin_right = -0.440002
+margin_bottom = 0.359985
+rect_min_size = Vector2( 62, 62 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

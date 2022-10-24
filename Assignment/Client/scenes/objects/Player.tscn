@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/objects/Camera.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/models/shiba.glb" type="PackedScene" id=2]
+[ext_resource path="res://bin/player.gdns" type="Script" id=3]
+[ext_resource path="res://bin/ledge_detector.gdns" type="Script" id=4]
+[ext_resource path="res://assets/sound/player_attack.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sound/player_miss.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sound/jump.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sound/walk.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sound/blip.wav" type="AudioStream" id=9]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.8
+height = 0.01
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 3 )
+ledge_detector_path = NodePath("LedgeDetector")
+camera_path = NodePath("CameraObject")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="CameraObject" parent="." instance=ExtResource( 1 )]
+sensitivity = 0.3
+length_delta = 1.0
+
+[node name="looking_at" type="RayCast" parent="CameraObject"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, -60, 0 )
+
+[node name="shiba" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.28, 0.455 )
+
+[node name="LedgeDetector" type="Spatial" parent="."]
+script = ExtResource( 4 )
+shape_path = NodePath("../CollisionShape")
+
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -7.505
+
+[node name="MissSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -9.649
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -4.0
+
+[node name="DashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -2.0
+
+[node name="WalkSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -2.0

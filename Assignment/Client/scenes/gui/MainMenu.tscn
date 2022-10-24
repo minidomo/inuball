@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://bin/scripts/gui/main_menu.gdns" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Torus SemiBold.otf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+font_data = ExtResource( 4 )
+
+[node name="MainMenu" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 120
+custom_constants/margin_top = 120
+custom_constants/margin_left = 120
+custom_constants/margin_bottom = 120
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+singleplayer_button_path = NodePath("MarginContainer/MenuOptions/SingleplayerButton")
+multiplayer_button_path = NodePath("MarginContainer/MenuOptions/MultiplayerButton")
+exit_button_path = NodePath("MarginContainer/MenuOptions/ExitButton")
+set_username_button_path = NodePath("MarginContainer/MenuOptions/HBoxContainer/SetUsernameButton")
+username_entry_path = NodePath("MarginContainer/MenuOptions/HBoxContainer/UsernameEntry")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 120.0
+margin_top = 120.0
+margin_right = 1160.0
+margin_bottom = 600.0
+custom_constants/margin_right = 300
+custom_constants/margin_left = 300
+
+[node name="MenuOptions" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 300.0
+margin_right = 740.0
+margin_bottom = 480.0
+size_flags_stretch_ratio = 0.3
+custom_constants/separation = 15
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MenuOptions"]
+margin_top = 137.0
+margin_right = 440.0
+margin_bottom = 172.0
+custom_constants/separation = 8
+
+[node name="UsernameEntry" type="LineEdit" parent="MarginContainer/MenuOptions/HBoxContainer"]
+margin_right = 266.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Username"
+editable = false
+
+[node name="SetUsernameButton" type="Button" parent="MarginContainer/MenuOptions/HBoxContainer"]
+margin_left = 274.0
+margin_right = 440.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 2 )
+text = "Set Username"
+
+[node name="SingleplayerButton" type="Button" parent="MarginContainer/MenuOptions"]
+margin_top = 187.0
+margin_right = 440.0
+margin_bottom = 229.0
+custom_fonts/font = SubResource( 3 )
+text = "Singleplayer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MultiplayerButton" type="Button" parent="MarginContainer/MenuOptions"]
+margin_top = 244.0
+margin_right = 440.0
+margin_bottom = 286.0
+custom_fonts/font = SubResource( 4 )
+text = "Multiplayer"
+
+[node name="ExitButton" type="Button" parent="MarginContainer/MenuOptions"]
+margin_top = 301.0
+margin_right = 440.0
+margin_bottom = 343.0
+custom_fonts/font = SubResource( 5 )
+text = "Exit"

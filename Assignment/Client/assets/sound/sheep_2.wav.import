@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/sheep_2.wav-a42c088e59cc583328725a206d1a3a2f.sample"
+
+[deps]
+
+source_file="res://assets/sound/sheep_2.wav"
+dest_files=[ "res://.import/sheep_2.wav-a42c088e59cc583328725a206d1a3a2f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

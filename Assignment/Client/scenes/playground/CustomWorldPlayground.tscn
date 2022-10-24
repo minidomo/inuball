@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/objects/CustomWorld.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/gui/GameOver.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/gui/Stats.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sound/bgm.wav" type="AudioStream" id=5]
+[ext_resource path="res://bin/background_music.gdns" type="Script" id=6]
+
+[node name="Main" type="Node"]
+
+[node name="CustomWorld" parent="." instance=ExtResource( 1 )]
+"Players Path" = NodePath("../Players")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -2.0
+autoplay = true
+script = ExtResource( 6 )
+
+[node name="Stats" parent="." instance=ExtResource( 4 )]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Players" type="Node" parent="."]
+
+[node name="GameOver" parent="." instance=ExtResource( 2 )]
+visible = false
