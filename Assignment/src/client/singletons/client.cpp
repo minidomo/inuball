@@ -291,7 +291,7 @@ void Client::response_update_entity(uint64_t entity_id, Vector3 translation,
         auto entity = Entity::get_entity(entity_id);
         entity->call_deferred("set_translation", translation);
         entity->call_deferred("set_rotation", rotation);
-        entity->call_deferred("set_linear_velocity", velocity);
+        // entity->call_deferred("set_linear_velocity", velocity);
     }
 }
 

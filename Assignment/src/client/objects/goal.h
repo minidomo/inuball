@@ -5,6 +5,7 @@
 #include <Area.hpp>
 #include <Label.hpp>
 #include <MeshInstance.hpp>
+#include <RigidBody.hpp>
 #include <SpatialMaterial.hpp>
 
 #include "../common.h"

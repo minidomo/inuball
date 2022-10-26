@@ -2,7 +2,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <RigidBody.hpp>
+#include <PhysicsBody.hpp>
 #include <random>
 #include <vector>
 
@@ -12,14 +12,14 @@
 #include "player.h"
 
 class Entity {
-    static vector<godot::RigidBody *> entities;
+    static vector<godot::PhysicsBody *> entities;
 
    public:
-    static uint64_t register_entity(RigidBody *entity) {
+    static uint64_t register_entity(PhysicsBody *entity) {
         entities.push_back(entity);
         return entities.size();
     }
-    static godot::RigidBody *get_entity(uint64_t id) {
+    static godot::PhysicsBody *get_entity(uint64_t id) {
         return entities[id - 1];
     }
 
@@ -51,7 +51,7 @@ class Entity {
         if (master)
             Client::get_singleton(entity)->update_entity(
                 entity_id, entity->get_translation(), entity->get_rotation(),
-                entity->get_linear_velocity());
+                Vector3{0, 0, 0});
     }
 };
 

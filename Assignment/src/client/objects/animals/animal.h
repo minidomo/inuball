@@ -26,8 +26,10 @@ typedef enum {
 #define thisnode this->get_child(0)->get_parent()
 
 template <size_t id_t>
-class Animal : public RigidBody, public LookingAtReceiver, public iGameObject {
-    GODOT_CLASS(Animal, RigidBody)
+class Animal : public KinematicBody,
+               public LookingAtReceiver,
+               public iGameObject {
+    GODOT_CLASS(Animal, KinematicBody)
    protected:
     bool inFocus;
     AudioStreamPlayer *interactStream;
@@ -40,13 +42,19 @@ class Animal : public RigidBody, public LookingAtReceiver, public iGameObject {
     real_t time_since_update = 0;
     uint64_t entity_id;
 
+    Vector3 velocity{0, 0, 0};
+    float gravity;
+
    public:
     const size_t id = id_t;
 
     static void _register_methods();
 
     void _ready();
-    void _init() { this->entity_id = Entity::register_entity(this); }
+    void _init() {
+        this->entity_id = Entity::register_entity(this);
+        this->gravity = 50.0f;
+    }
 
     void handleLookAt(Node *player, Node *target, Vector3 point, Vector3 normal,
                       real_t distance) override {
@@ -68,7 +76,18 @@ class Animal : public RigidBody, public LookingAtReceiver, public iGameObject {
     }
 
     void _process(real_t t) { Entity::entity_process(this->entity_id); }
-    void _physics_process(real_t t) {}
+    void _physics_process(real_t t) {
+        if (!is_on_floor()) this->velocity.y -= gravity * t;
+        velocity = this->move_and_slide_with_snap(velocity, Vector3::DOWN,
+                                                  Vector3::UP);
+
+        Vector3 orientation = velocity;
+        orientation.y = 0;
+        this->rotate(Vector3::UP, this->get_transform()
+                                      .get_basis()
+                                      .get_axis(GODOT_VECTOR3_AXIS_X)
+                                      .angle_to(orientation.normalized()));
+    }
 
     virtual bool interact_secondary(Node *player) override {
         attemptbreed(this);

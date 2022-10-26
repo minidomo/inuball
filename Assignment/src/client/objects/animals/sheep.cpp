@@ -12,6 +12,8 @@ void Sheep::_register_methods() {
     register_method("_input", &Sheep::_input);
     register_method("handleLookAt", &Sheep::handleLookAt);
     register_method("entered_goal", &Sheep::entered_goal);
+
+    register_property<Sheep, float>("Gravity", &Sheep::gravity, 50.0);
 }
 
 void Sheep::handleLookAt(Node *player, Node *target, Vector3 point,

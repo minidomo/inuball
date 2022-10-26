@@ -1,4 +1,4 @@
 
 #include "entity.h"
 
-vector<godot::RigidBody *> Entity::entities;
+vector<godot::PhysicsBody *> Entity::entities;

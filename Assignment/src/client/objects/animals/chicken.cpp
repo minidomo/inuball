@@ -7,11 +7,13 @@ using namespace godot;
 
 void Chicken::_register_methods() {
     register_method("_process", &Chicken::_process);
-    register_method("_phyiscs_process", &Chicken::_physics_process);
+    register_method("_physics_process", &Chicken::_physics_process);
     register_method("_ready", &Chicken::_ready);
     register_method("_input", &Chicken::_input);
     register_method("handleLookAt", &Chicken::handleLookAt);
     register_method("entered_goal", &Chicken::entered_goal);
+
+    register_property<Chicken, float>("Gravity", &Chicken::gravity, 50.0);
 }
 
 void Chicken::handleLookAt(Node *player, Node *target, Vector3 point,
