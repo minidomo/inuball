@@ -27,7 +27,7 @@ make plugin-lab
 
 3. Running the project
 
-Launch Godot and open the file, `project.godot`, located in the `Assignment3/Project/` directory. Run the project!
+Launch Godot and open the file, `project.godot`, located in the `Assignment/Project/` directory. Run the project!
 
 **Note:** When opening the project in Godot, files will sometimes get modified unintentionally and may cause unintended behavior when running the project. Ensure that files are unmodified prior to running. If changes are made, restore the original files and reload changes in Godot:
 
