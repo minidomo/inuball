@@ -2,24 +2,36 @@
 #ifndef SHEEP_H
 #define SHEEP_H
 
+#include <Area.hpp>
 #include <InputEvent.hpp>
 
 #include "animal.h"
 
 class Sheep : public Animal<Animals::SHEEP> {
     GODOT_CLASS(Sheep, Animal)
+
+   private:
+    Area *area;
+
    public:
     static void _register_methods();
 
     void _init() { Animal::_init(); }
+
     void _ready() {
         LookingAtReceiver::subscribe(this);
         interactStream =
             Object::cast_to<AudioStreamPlayer>(get_node("InteractSound"));
         deathStream =
             Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
+
+        area = Object::cast_to<Area>(get_node("Area"));
+        area->connect("body_entered", this, "on_body_entered");
+        area->connect("body_exited", this, "on_body_exited");
     }
+
     void _process(real_t t) { Animal::_process(t); }
+
     void _physics_process(real_t t) { Animal::_physics_process(t); }
 
     void _input(Ref<InputEvent> event);
@@ -31,6 +43,7 @@ class Sheep : public Animal<Animals::SHEEP> {
         interactStream->play();
         return true;
     }
+
     virtual bool interact_primary(Node *player) override {
         Animal::interact_primary(player);
         deathStream->play();  // TODO: Play entirely before queue_free
@@ -38,6 +51,13 @@ class Sheep : public Animal<Animals::SHEEP> {
     }
 
     virtual void entered_goal(Goal *goal) override;
+
+    void on_body_entered(Node *body);
+    void on_body_exited(Node *body);
+
+    void wander();
+    void flee();
+    void attack();
 };
 
 #endif

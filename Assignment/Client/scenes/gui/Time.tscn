@@ -2,7 +2,6 @@
 
 [ext_resource path="res://bin/scripts/gui/timer.gdns" type="Script" id=3]
 
-
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/gui/BAHNSCHRIFT.TTF"
 
@@ -21,7 +20,7 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-game_length = 10
+game_length = 30
 
 [node name="TimeText" type="Label" parent="."]
 margin_top = 8.0

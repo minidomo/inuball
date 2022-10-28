@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/sound/bgm.wav" type="AudioStream" id=5]
 [ext_resource path="res://bin/scripts/sound/background_music.gdns" type="Script" id=6]
 
-
 [node name="Main" type="Node"]
 
 [node name="CustomWorld" parent="." instance=ExtResource( 1 )]
