@@ -48,6 +48,20 @@ void Sheep::entered_goal(Goal *goal) {
     goal->score("Sheep", 1, 1);
 }
 
+void Sheep::_physics_process(real_t delta) {
+    int updated_state = check_state();
+
+    if (updated_state != state) {
+        state = updated_state;
+        update_action();
+        action->init();
+    }
+
+    action->tick(delta);
+
+    Animal::_physics_process(delta);
+}
+
 void Sheep::on_body_entered(Node *body) {
     Goal *goal = Object::cast_to<Goal>(body);
     Player *player = Object::cast_to<Player>(body);
@@ -82,8 +96,22 @@ void Sheep::on_body_entered(Node *body) {
 
 void Sheep::on_body_exited(Node *body) {}
 
-void Sheep::wander() {}
+void Sheep::update_action() { action = actions[state].get(); }
 
-void Sheep::flee() {}
+int Sheep::check_state() {
+    int state = 0;
 
-void Sheep::attack() {}
+    Array bodies = area->get_overlapping_bodies();
+    for (int i = 0; i < bodies.size(); i++) {
+        Goal *goal = Object::cast_to<Goal>(bodies[i]);
+        Player *player = Object::cast_to<Player>(bodies[i]);
+
+        if (goal) {
+            state |= +SheepState::NEAR_GOAL;
+        } else if (player) {
+            state |= +SheepState::NEAR_PLAYER;
+        }
+    }
+
+    return state;
+}
