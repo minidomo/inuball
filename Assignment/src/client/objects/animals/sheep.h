@@ -19,8 +19,8 @@ class Sheep : public Animal<Animals::SHEEP> {
    private:
     Area *area;
     int state;
-    Action *action;
-    vector<unique_ptr<Action>> actions;
+    Action<Sheep> *action;
+    vector<unique_ptr<Action<Sheep>>> actions;
 
    public:
     static void _register_methods();
@@ -47,6 +47,7 @@ class Sheep : public Animal<Animals::SHEEP> {
         actions[+SheepState::DEFAULT].reset(new WanderAction(this));
         actions[+SheepState::NEAR_PLAYER].reset(new AttackAction(this));
 
+        // any time a sheep is near a goal, then it should try to flee
         FleeAction *flee_action = new FleeAction(this);
         actions[+SheepState::NEAR_GOAL].reset(flee_action);
         actions[+SheepState::NEAR_GOAL | +SheepState::NEAR_PLAYER].reset(

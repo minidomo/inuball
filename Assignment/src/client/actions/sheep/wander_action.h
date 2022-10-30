@@ -6,12 +6,9 @@
 
 class Sheep;
 
-class WanderAction : public Action {
-   private:
-    Sheep *sheep;
-
+class WanderAction : public Action<Sheep> {
    public:
-    WanderAction(Sheep *sheep);
+    using Action<Sheep>::Action;
 
     virtual void init();
     virtual void tick(real_t delta);
