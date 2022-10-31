@@ -2,25 +2,52 @@
 #ifndef SHEEP_H
 #define SHEEP_H
 
+#include <Area.hpp>
 #include <InputEvent.hpp>
 
+#include "../../actions/sheep/attack_action.h"
+#include "../../actions/sheep/base_sheep_action.h"
+#include "../../actions/sheep/flee_action.h"
+#include "../../actions/sheep/wander_action.h"
+#include "../enums/sheep_state.h"
+#include "../finite_state_machine.h"
 #include "animal.h"
 
 class Sheep : public Animal<Animals::SHEEP> {
-    GODOT_CLASS(Sheep, Animal)
+    GODOT_CLASS(Sheep, Animal);
+
+    friend class BaseSheepAction;
+    friend class AttackAction;
+    friend class FleeAction;
+    friend class WanderAction;
+
+   private:
+    Area *area;
+    FiniteStateMachine *fsm;
+
    public:
     static void _register_methods();
 
     void _init() { Animal::_init(); }
+
     void _ready() {
         LookingAtReceiver::subscribe(this);
         interactStream =
             Object::cast_to<AudioStreamPlayer>(get_node("InteractSound"));
         deathStream =
             Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
+
+        area = Object::cast_to<Area>(get_node("Area"));
+
+        fsm =
+            Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
+        fsm->set_children_base(this);
+        fsm->update_state(+SheepState::DEFAULT);
     }
+
     void _process(real_t t) { Animal::_process(t); }
-    void _physics_process(real_t t) { Animal::_physics_process(t); }
+
+    void _physics_process(real_t delta);
 
     void _input(Ref<InputEvent> event);
 
@@ -31,6 +58,7 @@ class Sheep : public Animal<Animals::SHEEP> {
         interactStream->play();
         return true;
     }
+
     virtual bool interact_primary(Node *player) override {
         Animal::interact_primary(player);
         deathStream->play();  // TODO: Play entirely before queue_free
@@ -38,6 +66,12 @@ class Sheep : public Animal<Animals::SHEEP> {
     }
 
     virtual void entered_goal(Goal *goal) override;
+
+    void on_body_entered(Node *body);
+    void on_body_exited(Node *body);
+
+    void update_action();
+    int check_state();
 };
 
 #endif

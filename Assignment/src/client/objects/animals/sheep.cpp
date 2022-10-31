@@ -45,3 +45,31 @@ void Sheep::entered_goal(Goal *goal) {
     Animal::entered_goal(goal);
     goal->score("Sheep", 1, 1);
 }
+
+void Sheep::_physics_process(real_t delta) {
+    int updated_state = check_state();
+
+    if (updated_state != fsm->get_state()) {
+        fsm->update_state(updated_state);
+    }
+
+    fsm->perform_action(delta);
+}
+
+int Sheep::check_state() {
+    int state = 0;
+
+    Array bodies = area->get_overlapping_bodies();
+    for (int i = 0; i < bodies.size(); i++) {
+        Goal *goal = Object::cast_to<Goal>(bodies[i]);
+        Player *player = Object::cast_to<Player>(bodies[i]);
+
+        if (goal) {
+            state |= +SheepState::NEAR_GOAL;
+        } else if (player) {
+            state |= +SheepState::NEAR_PLAYER;
+        }
+    }
+
+    return state;
+}

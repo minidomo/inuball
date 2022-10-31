@@ -224,7 +224,7 @@ void Client::spawn_current_players() {
         uint64_t client_id = client["id"];
         if (client_id != this->client_id) {
             Godot::print("Spawning...");
-            Godot::print(String::num_int64(client_id));
+            Godot::print("client id: " + String::num_int64(client_id));
             emit_signal("received_spawn_player", client, this->client_id);
         }
     }
@@ -261,7 +261,6 @@ void Client::response_get_stats_for(uint64_t client_id, uint64_t lobby_id) {
 }
 
 void Client::response_spawn_player(int64_t client_id) {
-    Godot::print(String::num_int64(client_id));
     Array clients = lobby_data["clients"];
     for (int i = 0; i < clients.size(); i++) {
         Dictionary client = clients[i];
