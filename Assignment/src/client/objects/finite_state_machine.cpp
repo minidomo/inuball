@@ -21,8 +21,9 @@ void FiniteStateMachine::_ready() {
 }
 
 void FiniteStateMachine::perform_action(real_t delta) {
-    dev_assert(current_action != nullptr);
-    current_action->tick(delta);
+    if (current_action) {
+        current_action->tick(delta);
+    }
 }
 
 void FiniteStateMachine::update_state(int state) {

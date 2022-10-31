@@ -5,12 +5,10 @@
 #include "./base_sheep_action.h"
 
 class WanderAction : public BaseSheepAction {
-    GODOT_CLASS(WanderAction, Node);
+    GODOT_CLASS(WanderAction, BaseSheepAction);
 
    public:
     static void _register_methods();
-
-    void _ready();
 
     virtual void initialize() override;
     virtual void tick(real_t delta) override;

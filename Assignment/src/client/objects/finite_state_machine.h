@@ -9,6 +9,11 @@
 class FiniteStateMachine : public Node {
     GODOT_CLASS(FiniteStateMachine, Node);
 
+    /*
+    Actions should be ordered under a finite state machine machine such that its
+    index in the FSM's children corresponds to its associated state.
+    */
+
    private:
     Action *current_action;
     int state;

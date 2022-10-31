@@ -1,9 +1,8 @@
 #include "./flee_action.h"
 
-void FleeAction::_register_methods() {
-    register_method("initialize", &FleeAction::initialize);
-    register_method("tick", &FleeAction::tick);
-}
+#include "../../objects/animals/sheep.h"
+
+void FleeAction::_register_methods() {}
 
 void FleeAction::initialize() {
     String id = String::num_int64(base->get_instance_id());

@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://bin/scripts/objects/animals/sheep.gdns" type="Script" id=1]
 [ext_resource path="res://assets/sound/sheep_1.wav" type="AudioStream" id=2]
 [ext_resource path="res://assets/sound/sheep_2.wav" type="AudioStream" id=3]
 [ext_resource path="res://scenes/objects/FiniteStateMachine.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/actions/sheep/WanderAction.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/actions/sheep/AttackAction.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/actions/sheep/FleeAction.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -14,7 +16,7 @@ albedo_color = Color( 0.403922, 0.403922, 0.403922, 1 )
 [sub_resource type="BoxShape" id=3]
 
 [sub_resource type="SphereShape" id=4]
-radius = 15.0
+radius = 10.0
 
 [node name="Sheep" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -42,6 +44,12 @@ volume_db = -4.039
 shape = SubResource( 4 )
 
 [node name="FiniteStateMachine" parent="." instance=ExtResource( 4 )]
-max_num_states = 1
+max_num_states = 4
 
 [node name="WanderAction" parent="FiniteStateMachine" instance=ExtResource( 5 )]
+
+[node name="AttackAction" parent="FiniteStateMachine" instance=ExtResource( 6 )]
+
+[node name="FleeAction" parent="FiniteStateMachine" instance=ExtResource( 7 )]
+
+[node name="FleeAction2" parent="FiniteStateMachine" instance=ExtResource( 7 )]

@@ -6,6 +6,7 @@
 #include <InputEvent.hpp>
 
 #include "../../actions/sheep/attack_action.h"
+#include "../../actions/sheep/base_sheep_action.h"
 #include "../../actions/sheep/flee_action.h"
 #include "../../actions/sheep/wander_action.h"
 #include "../enums/sheep_state.h"
@@ -13,7 +14,12 @@
 #include "animal.h"
 
 class Sheep : public Animal<Animals::SHEEP> {
-    GODOT_CLASS(Sheep, Animal)
+    GODOT_CLASS(Sheep, Animal);
+
+    friend class BaseSheepAction;
+    friend class AttackAction;
+    friend class FleeAction;
+    friend class WanderAction;
 
    private:
     Area *area;
@@ -32,8 +38,6 @@ class Sheep : public Animal<Animals::SHEEP> {
             Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
 
         area = Object::cast_to<Area>(get_node("Area"));
-        area->connect("body_entered", this, "on_body_entered");
-        area->connect("body_exited", this, "on_body_exited");
 
         fsm =
             Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));

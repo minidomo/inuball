@@ -1,9 +1,8 @@
 #include "./attack_action.h"
 
-void AttackAction::_register_methods() {
-    register_method("initialize", &AttackAction::initialize);
-    register_method("tick", &AttackAction::tick);
-}
+#include "../../objects/animals/sheep.h"
+
+void AttackAction::_register_methods() {}
 
 void AttackAction::initialize() {
     String id = String::num_int64(base->get_instance_id());

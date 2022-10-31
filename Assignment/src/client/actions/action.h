@@ -14,7 +14,7 @@ class Action : public Node {
    public:
     static void _register_methods();
 
-    void _ready();
+    void _init();
 
     void set_base(Node *base);
     Node *get_base();

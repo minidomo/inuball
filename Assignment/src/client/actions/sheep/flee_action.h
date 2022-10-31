@@ -5,7 +5,7 @@
 #include "./base_sheep_action.h"
 
 class FleeAction : public BaseSheepAction {
-    GODOT_CLASS(FleeAction, Node);
+    GODOT_CLASS(FleeAction, BaseSheepAction);
 
    public:
     static void _register_methods();

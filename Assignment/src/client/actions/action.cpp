@@ -2,13 +2,9 @@
 
 #include "../debug.h"
 
-void Action::_register_methods() {
-    register_method("_ready", &Action::_ready);
-    register_method("initialize", &Action::initialize);
-    register_method("tick", &Action::tick);
-}
+void Action::_register_methods() {}
 
-void Action::_ready() { Godot::print("action is ready"); }
+void Action::_init() {}
 
 void Action::set_base(Node *base) { this->base = base; }
 

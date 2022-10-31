@@ -77,16 +77,28 @@ class Animal : public KinematicBody,
 
     void _process(real_t t) { Entity::entity_process(this->entity_id); }
     void _physics_process(real_t t) {
-        if (!is_on_floor()) this->velocity.y -= gravity * t;
-        velocity = this->move_and_slide_with_snap(velocity, Vector3::DOWN,
-                                                  Vector3::UP);
+        if (!is_on_floor()) {
+            velocity.y -= gravity * t;
+        }
+
+        velocity =
+            move_and_slide_with_snap(velocity, Vector3::DOWN, Vector3::UP);
 
         Vector3 orientation = velocity;
         orientation.y = 0;
-        this->rotate(Vector3::UP, this->get_transform()
-                                      .get_basis()
-                                      .get_axis(GODOT_VECTOR3_AXIS_X)
-                                      .angle_to(orientation.normalized()));
+        orientation.normalize();
+        orientation.rotate(Vector3::UP, Math::deg2rad(90.0f));
+
+        if (orientation != Vector3::ZERO) {
+            Vector3 origin = get_global_transform().origin;
+
+            // the difference between target and origin needs to be large enough
+            // so look_at works
+            float multiplier = 50;
+            Vector3 target = origin + orientation * multiplier;
+
+            look_at(target, Vector3::UP);
+        }
     }
 
     virtual bool interact_secondary(Node *player) override {
