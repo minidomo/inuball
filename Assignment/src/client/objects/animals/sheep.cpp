@@ -51,13 +51,11 @@ void Sheep::entered_goal(Goal *goal) {
 void Sheep::_physics_process(real_t delta) {
     int updated_state = check_state();
 
-    if (updated_state != state) {
-        state = updated_state;
-        update_action();
-        action->init();
+    if (updated_state != fsm->get_state()) {
+        fsm->update_state(updated_state);
     }
 
-    action->tick(delta);
+    fsm->perform_action(delta);
 
     Animal::_physics_process(delta);
 }
@@ -95,8 +93,6 @@ void Sheep::on_body_entered(Node *body) {
 }
 
 void Sheep::on_body_exited(Node *body) {}
-
-void Sheep::update_action() { action = actions[state].get(); }
 
 int Sheep::check_state() {
     int state = 0;

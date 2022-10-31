@@ -1,3 +1,7 @@
+#include "actions/sheep/attack_action.h"
+#include "actions/sheep/base_sheep_action.h"
+#include "actions/sheep/flee_action.h"
+#include "actions/sheep/wander_action.h"
 #include "common.h"
 #include "gui/connecting_screen.h"
 #include "gui/main_menu.h"
@@ -11,6 +15,7 @@
 #include "gui/timer.h"
 #include "objects/animals/animal.h"
 #include "objects/camera.h"
+#include "objects/finite_state_machine.h"
 #include "objects/goal.h"
 #include "objects/ledge_detector.h"
 #include "objects/player.h"
@@ -58,4 +63,10 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
     register_class<MultiplayerLobbyPlayer>();
 
     register_class<Client>();
+
+    register_class<FiniteStateMachine>();
+    register_class<BaseSheepAction>();
+    register_class<AttackAction>();
+    register_class<FleeAction>();
+    register_class<WanderAction>();
 }

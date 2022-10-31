@@ -2,16 +2,16 @@
 #define A4_WANDER_ACTION_H
 
 #include "../../common.h"
-#include "../action.h"
+#include "./base_sheep_action.h"
 
-class Sheep;
+class WanderAction : public BaseSheepAction {
+    GODOT_CLASS(WanderAction, Node);
 
-class WanderAction : public Action<Sheep> {
    public:
-    using Action<Sheep>::Action;
+    static void _register_methods();
 
-    virtual void init();
-    virtual void tick(real_t delta);
+    virtual void initialize() override;
+    virtual void tick(real_t delta) override;
 };
 
 #endif

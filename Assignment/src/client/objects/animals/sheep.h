@@ -4,13 +4,12 @@
 
 #include <Area.hpp>
 #include <InputEvent.hpp>
-#include <memory>
-#include <vector>
 
 #include "../../actions/sheep/attack_action.h"
 #include "../../actions/sheep/flee_action.h"
 #include "../../actions/sheep/wander_action.h"
 #include "../enums/sheep_state.h"
+#include "../finite_state_machine.h"
 #include "animal.h"
 
 class Sheep : public Animal<Animals::SHEEP> {
@@ -18,17 +17,12 @@ class Sheep : public Animal<Animals::SHEEP> {
 
    private:
     Area *area;
-    int state;
-    Action<Sheep> *action;
-    vector<unique_ptr<Action<Sheep>>> actions;
+    FiniteStateMachine *fsm;
 
    public:
     static void _register_methods();
 
-    void _init() {
-        Animal::_init();
-        state = +SheepState::DEFAULT;
-    }
+    void _init() { Animal::_init(); }
 
     void _ready() {
         LookingAtReceiver::subscribe(this);
@@ -41,20 +35,9 @@ class Sheep : public Animal<Animals::SHEEP> {
         area->connect("body_entered", this, "on_body_entered");
         area->connect("body_exited", this, "on_body_exited");
 
-        // set actions for fsm
-        actions.resize(4);
-
-        actions[+SheepState::DEFAULT].reset(new WanderAction(this));
-        actions[+SheepState::NEAR_PLAYER].reset(new AttackAction(this));
-
-        // any time a sheep is near a goal, then it should try to flee
-        FleeAction *flee_action = new FleeAction(this);
-        actions[+SheepState::NEAR_GOAL].reset(flee_action);
-        actions[+SheepState::NEAR_GOAL | +SheepState::NEAR_PLAYER].reset(
-            flee_action);
-
-        update_action();
-        action->init();
+        fsm =
+            Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
+        fsm->update_state(+SheepState::DEFAULT);
     }
 
     void _process(real_t t) { Animal::_process(t); }

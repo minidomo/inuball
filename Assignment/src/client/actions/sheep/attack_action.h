@@ -2,16 +2,16 @@
 #define A4_ATTACK_ACTION_H
 
 #include "../../common.h"
-#include "../action.h"
+#include "./base_sheep_action.h"
 
-class Sheep;
+class AttackAction : public BaseSheepAction {
+    GODOT_CLASS(AttackAction, Node);
 
-class AttackAction : public Action<Sheep> {
    public:
-    using Action<Sheep>::Action;
+    static void _register_methods();
 
-    virtual void init();
-    virtual void tick(real_t delta);
+    virtual void initialize() override;
+    virtual void tick(real_t delta) override;
 };
 
 #endif
