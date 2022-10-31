@@ -49,11 +49,11 @@ void Sheep::entered_goal(Goal *goal) {
 }
 
 void Sheep::_physics_process(real_t delta) {
-    int updated_state = check_state();
+    // int updated_state = check_state();
 
-    if (updated_state != fsm->get_state()) {
-        fsm->update_state(updated_state);
-    }
+    // if (updated_state != fsm->get_state()) {
+    //     fsm->update_state(updated_state);
+    // }
 
     fsm->perform_action(delta);
 

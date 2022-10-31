@@ -1,3 +1,4 @@
+#include "actions/action.h"
 #include "actions/sheep/attack_action.h"
 #include "actions/sheep/base_sheep_action.h"
 #include "actions/sheep/flee_action.h"
@@ -65,6 +66,7 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
     register_class<Client>();
 
     register_class<FiniteStateMachine>();
+    register_class<Action>();
     register_class<BaseSheepAction>();
     register_class<AttackAction>();
     register_class<FleeAction>();

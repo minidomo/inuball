@@ -37,6 +37,7 @@ class Sheep : public Animal<Animals::SHEEP> {
 
         fsm =
             Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
+        fsm->set_children_base(this);
         fsm->update_state(+SheepState::DEFAULT);
     }
 

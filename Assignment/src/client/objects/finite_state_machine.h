@@ -27,6 +27,8 @@ class FiniteStateMachine : public Node {
 
     void update_state(int state);
     int get_state();
+
+    void set_children_base(Node *base);
 };
 
 #endif

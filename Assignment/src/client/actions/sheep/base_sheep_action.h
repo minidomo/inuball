@@ -4,25 +4,17 @@
 #include <Node.hpp>
 
 #include "../../common.h"
-#include "../base.h"
+#include "../action.h"
 
 class Sheep;
 
-class BaseSheepAction : public Node, public Base<Sheep> {
+class BaseSheepAction : public Action {
     GODOT_CLASS(BaseSheepAction, Node);
 
    public:
     static void _register_methods();
 
-    /**
-     * Perform any initial steps prior to this action starting
-     */
-    virtual void initialize();
-
-    /**
-     * Should be called in _physics_process() and performs the action
-     */
-    virtual void tick(real_t delta);
+    Sheep *get_base_typed();
 };
 
 #endif

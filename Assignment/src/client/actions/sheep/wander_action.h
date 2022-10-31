@@ -10,6 +10,8 @@ class WanderAction : public BaseSheepAction {
    public:
     static void _register_methods();
 
+    void _ready();
+
     virtual void initialize() override;
     virtual void tick(real_t delta) override;
 };

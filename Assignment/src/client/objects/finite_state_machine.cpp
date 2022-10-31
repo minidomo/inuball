@@ -21,6 +21,7 @@ void FiniteStateMachine::_ready() {
 }
 
 void FiniteStateMachine::perform_action(real_t delta) {
+    dev_assert(current_action != nullptr);
     current_action->tick(delta);
 }
 
@@ -38,4 +39,11 @@ Action* FiniteStateMachine::get_action(int i) {
     Action* action = Object::cast_to<Action>(get_child(i));
     dev_assert(action != nullptr);
     return action;
+}
+
+void FiniteStateMachine::set_children_base(Node* base) {
+    for (int i = 0; i < max_num_states; i++) {
+        Action* action = get_action(i);
+        action->set_base(base);
+    }
 }
