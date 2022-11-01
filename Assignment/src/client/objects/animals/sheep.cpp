@@ -16,6 +16,18 @@ void Sheep::_register_methods() {
     register_property<Sheep, float>("Gravity", &Sheep::gravity, 50.0);
 }
 
+void Sheep::_ready() {
+    LookingAtReceiver::subscribe(this);
+    interactStream =
+        Object::cast_to<AudioStreamPlayer>(get_node("InteractSound"));
+    deathStream = Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
+
+    area = Object::cast_to<Area>(get_node("Area"));
+
+    fsm = Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
+    fsm->setup(this, +SheepState::DEFAULT);
+}
+
 void Sheep::handleLookAt(Node *player, Node *target, Vector3 point,
                          Vector3 normal, real_t distance) {
     Animal::handleLookAt(player, target, point, normal, distance);
@@ -47,7 +59,7 @@ void Sheep::entered_goal(Goal *goal) {
 }
 
 void Sheep::_physics_process(real_t delta) {
-    int updated_state = check_state();
+    int updated_state = compute_state();
 
     if (updated_state != fsm->get_state()) {
         fsm->update_state(updated_state);
@@ -56,7 +68,7 @@ void Sheep::_physics_process(real_t delta) {
     fsm->perform_action(delta);
 }
 
-int Sheep::check_state() {
+int Sheep::compute_state() {
     int state = 0;
 
     Array bodies = area->get_overlapping_bodies();

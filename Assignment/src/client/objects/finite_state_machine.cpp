@@ -48,3 +48,8 @@ void FiniteStateMachine::set_children_base(Node* base) {
         action->set_base(base);
     }
 }
+
+void FiniteStateMachine::setup(Node* base, int initial_state) {
+    set_children_base(base);
+    update_state(initial_state);
+}

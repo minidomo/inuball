@@ -34,6 +34,7 @@ class FiniteStateMachine : public Node {
     int get_state();
 
     void set_children_base(Node *base);
+    void setup(Node *base, int initial_state);
 };
 
 #endif

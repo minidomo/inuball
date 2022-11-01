@@ -30,20 +30,7 @@ class Sheep : public Animal<Animals::SHEEP> {
 
     void _init() { Animal::_init(); }
 
-    void _ready() {
-        LookingAtReceiver::subscribe(this);
-        interactStream =
-            Object::cast_to<AudioStreamPlayer>(get_node("InteractSound"));
-        deathStream =
-            Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
-
-        area = Object::cast_to<Area>(get_node("Area"));
-
-        fsm =
-            Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
-        fsm->set_children_base(this);
-        fsm->update_state(+SheepState::DEFAULT);
-    }
+    void _ready();
 
     void _process(real_t t) { Animal::_process(t); }
 
@@ -71,7 +58,7 @@ class Sheep : public Animal<Animals::SHEEP> {
     void on_body_exited(Node *body);
 
     void update_action();
-    int check_state();
+    int compute_state();
 };
 
 #endif
