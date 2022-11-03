@@ -10,6 +10,7 @@
 #include "../debug.h"
 #include "../entity.h"
 #include "../gui/timer.h"
+#include "../objects/animals/chicken.h"
 #include "../objects/goal.h"
 #include "../objects/player.h"
 #include "../singletons/client.h"
@@ -116,7 +117,19 @@ void CustomWorld::_ready() {
     GLOBALS::instance.goals[1] = goal2;
 
     // populate with animals
-    spawn_animal("Chicken", 10);
+    spawn_animal("Chicken", 20);
+    Array children = this->get_children();
+    chickens = Array();
+    int idx = 0;
+    for (int i = 0; i < children.size(); i++) {
+        Chicken* tmp = Object::cast_to<Chicken>(children[i]);
+        if (tmp) {
+            children[idx] = tmp;
+            tmp->set_translation(Vector3(Chunk::size / 2 + idx % 5, 5,
+                                         Chunk::size / 2 + idx / 5));
+            idx++;
+        }
+    }
     spawn_animal("Sheep", 6);
     Client::get_singleton(this)->game_ready();
 }

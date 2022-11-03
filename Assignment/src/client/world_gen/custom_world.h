@@ -26,6 +26,8 @@ class CustomWorld : public StaticBody {
     NodePath player_path;
     NodePath players_path;
 
+    Array chickens;
+
    public:
     static void _register_methods();
 

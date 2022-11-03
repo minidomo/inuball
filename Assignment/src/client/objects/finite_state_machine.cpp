@@ -31,7 +31,9 @@ void FiniteStateMachine::update_state(int state) {
 
     this->state = state;
     current_action = get_action(state);
+    Godot::print("before");
     current_action->initialize();
+    Godot::print("after");
 }
 
 int FiniteStateMachine::get_state() { return state; }

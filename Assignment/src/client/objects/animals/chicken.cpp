@@ -1,4 +1,3 @@
-
 #include "chicken.h"
 
 #include <InputEventKey.hpp>
@@ -14,6 +13,18 @@ void Chicken::_register_methods() {
     register_method("entered_goal", &Chicken::entered_goal);
 
     register_property<Chicken, float>("Gravity", &Chicken::gravity, 50.0);
+}
+
+void Chicken::_ready() {
+    LookingAtReceiver::subscribe(this);
+    interactStream =
+        Object::cast_to<AudioStreamPlayer>(get_node("InteractSound"));
+    deathStream = Object::cast_to<AudioStreamPlayer>(get_node("DeathSound"));
+
+    area = Object::cast_to<Area>(get_node("Area"));
+
+    fsm = Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
+    fsm->setup(this, +ChickenState::DEFAULT);
 }
 
 void Chicken::handleLookAt(Node *player, Node *target, Vector3 point,
@@ -44,4 +55,32 @@ void Chicken::_input(Ref<InputEvent> event) {
 void Chicken::entered_goal(Goal *goal) {
     Animal::entered_goal(goal);
     goal->score("Chicken", 5, 1);
+}
+
+void Chicken::_physics_process(real_t delta) {
+    int updated_state = compute_state();
+
+    if (updated_state != fsm->get_state()) {
+        fsm->update_state(updated_state);
+    }
+
+    fsm->perform_action(delta);
+}
+
+int Chicken::compute_state() {
+    int state = 0;
+
+    // Array bodies = area->get_overlapping_bodies();
+    // for (int i = 0; i < bodies.size(); i++) {
+    //     Goal *goal = Object::cast_to<Goal>(bodies[i]);
+    //     Player *player = Object::cast_to<Player>(bodies[i]);
+
+    //     if (goal) {
+    //         state |= +ChickenState::NEAR_PLAYER_OR_GOAL;
+    //     } else if (player) {
+    //         state |= +ChickenState::HIDE;
+    //     }
+    // }
+
+    return state;
 }
