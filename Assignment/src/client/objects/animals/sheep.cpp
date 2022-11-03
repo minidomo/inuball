@@ -85,3 +85,21 @@ int Sheep::compute_state() {
 
     return state;
 }
+
+void Sheep::look_forward() {
+    Vector3 orientation = velocity;
+    orientation.y = 0;
+    orientation.normalize();
+    orientation.rotate(Vector3::UP, Math::deg2rad(90.0f));
+
+    if (orientation != Vector3::ZERO) {
+        Vector3 origin = get_global_transform().origin;
+
+        // the difference between target and origin needs to be large enough
+        // so look_at works
+        float multiplier = 50;
+        Vector3 target = origin + orientation * multiplier;
+
+        look_at(target, Vector3::UP);
+    }
+}

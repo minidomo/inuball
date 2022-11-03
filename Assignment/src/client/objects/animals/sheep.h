@@ -54,11 +54,10 @@ class Sheep : public Animal<Animals::SHEEP> {
 
     virtual void entered_goal(Goal *goal) override;
 
-    void on_body_entered(Node *body);
-    void on_body_exited(Node *body);
-
     void update_action();
     int compute_state();
+
+    void look_forward();
 };
 
 #endif
