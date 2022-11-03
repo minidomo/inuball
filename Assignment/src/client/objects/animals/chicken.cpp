@@ -9,6 +9,8 @@ void Chicken::_register_methods() {
     register_method("_physics_process", &Chicken::_physics_process);
     register_method("_ready", &Chicken::_ready);
     register_method("_input", &Chicken::_input);
+    register_method("set_chickens", &Chicken::set_chickens);
+    register_method("get_chickens", &Chicken::get_chickens);
     register_method("handleLookAt", &Chicken::handleLookAt);
     register_method("entered_goal", &Chicken::entered_goal);
 

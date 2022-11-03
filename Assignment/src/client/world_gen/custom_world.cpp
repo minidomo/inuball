@@ -120,16 +120,19 @@ void CustomWorld::_ready() {
     spawn_animal("Chicken", 20);
     Array children = this->get_children();
     chickens = Array();
-    int idx = 0;
     for (int i = 0; i < children.size(); i++) {
         Chicken* tmp = Object::cast_to<Chicken>(children[i]);
         if (tmp) {
-            children[idx] = tmp;
-            tmp->set_translation(Vector3(Chunk::size / 2 + idx % 5, 5,
-                                         Chunk::size / 2 + idx / 5));
-            idx++;
+            chickens.push_back(tmp);
+            // tmp->set_translation(Vector3(Chunk::size / 2 + idx % 5 * 2, 5,
+            //                              Chunk::size / 2 + idx / 5 * 2));
         }
     }
+    for (int i = 0; i < chickens.size(); i++) {
+        Chicken* tmp = Object::cast_to<Chicken>(chickens[i]);
+        tmp->set_chickens(chickens);
+    }
+
     spawn_animal("Sheep", 6);
     Client::get_singleton(this)->game_ready();
 }

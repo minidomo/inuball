@@ -24,6 +24,7 @@ class Chicken : public Animal<Animals::CHICKEN> {
    private:
     Area *area;
     FiniteStateMachine *fsm;
+    Array chickens;
 
    public:
     static void _register_methods();
@@ -34,6 +35,10 @@ class Chicken : public Animal<Animals::CHICKEN> {
 
     void _process(real_t t) { Animal::_process(t); }
     void _physics_process(real_t t);
+
+    void set_chickens(Array chickens) { this->chickens = chickens; }
+
+    Array get_chickens() { return this->chickens; }
 
     virtual void handleLookAt(Node *player, Node *target, Vector3 point,
                               Vector3 normal, real_t distance) override;
