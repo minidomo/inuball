@@ -35,7 +35,6 @@ class Player : public KinematicBody {
     float max_angle_walk;
     float time_since_touched;
 
-    Vector3 velocity;
     Vector3 snap;
 
     LedgeDetector *ledge_detector;
@@ -76,6 +75,8 @@ class Player : public KinematicBody {
     void handle_glide(float delta);
 
    public:
+    Vector3 velocity;
+    bool need_to_handle_collision = false;
     static void _register_methods();
 
     void set_selected(iGameObject *obj) { selected = obj; }
@@ -95,6 +96,8 @@ class Player : public KinematicBody {
     bool handle_others(float delta);
 
     void _input(Ref<InputEvent> event);
+
+    void body_entered(Node *body);
 };
 
 #endif
