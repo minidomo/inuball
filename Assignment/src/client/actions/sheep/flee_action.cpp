@@ -24,6 +24,7 @@ void FleeAction::initialize() {
 }
 
 void FleeAction::tick(real_t delta) {
+    BaseSheepAction::tick(delta);
     Array goals = find_nearby_goals();
 
     if (goals.empty()) return;
@@ -33,17 +34,11 @@ void FleeAction::tick(real_t delta) {
     // determine the direction to move in and the speed
     Vector3 target_direction = determine_target_direction(goals);
     float max_speed = find_max_goal_speed(goals);
-    Vector3 velocity = target_direction * max_speed;
 
-    // apply gravity
-    if (!sheep->is_on_floor()) {
-        velocity.y -= sheep->gravity * delta;
-    }
-
-    sheep->velocity =
-        sheep->move_and_slide_with_snap(velocity, Vector3::DOWN, Vector3::UP);
-
-    sheep->look_forward();
+    // maintain y velocity and change everything else
+    float vel_y = sheep->velocity.y;
+    sheep->velocity = target_direction * max_speed;
+    sheep->velocity.y = vel_y;
 }
 
 Array FleeAction::find_nearby_goals() {

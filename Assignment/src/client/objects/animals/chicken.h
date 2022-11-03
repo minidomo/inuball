@@ -37,6 +37,10 @@ class Chicken : public Animal<Animals::CHICKEN> {
         return true;
     }
 
+    virtual void collide_with_player(Player *player) {
+        Animal::collide_with_player(player);
+    }
+
     virtual void entered_goal(Goal *goal) override;
 };
 

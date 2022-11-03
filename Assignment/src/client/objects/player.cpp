@@ -18,6 +18,7 @@ void Player::_register_methods() {
     register_method("set_username", &Player::set_username);
     register_method("get_id", &Player::get_id);
     register_method("get_username", &Player::get_username);
+    register_method("body_entered", &Player::body_entered);
 
     register_property<Player, float>("Speed", &Player::speed, 10.0);
     register_property<Player, float>("Jump Force", &Player::jump_force, 30.0);
@@ -95,6 +96,13 @@ void Player::_ready() {
     dash_sound = Object::cast_to<AudioStreamPlayer>(get_node("DashSound"));
     walk_sound = Object::cast_to<AudioStreamPlayer>(get_node("WalkSound"));
     recursiveRayCastExceptions(looking_at, this);
+
+    this->get_node("./Area")->connect("body_entered", this, "body_entered");
+}
+
+void Player::body_entered(Node *body) {
+    if (body->has_method("collide_with_player"))
+        body->call("collide_with_player", this);
 }
 
 bool Player::handle_others(float delta) {
@@ -113,6 +121,14 @@ void Player::_process(float delta) {
 void Player::_physics_process(float delta) {
     if (!controllable) {
         return;
+    }
+    if (need_to_handle_collision) {
+        velocity = move_and_slide_with_snap(velocity, snap, Vector3::UP, true,
+                                            4, Math::deg2rad(max_angle_walk));
+        if (velocity.length_squared() < 1) need_to_handle_collision = false;
+        velocity.y -= gravity * delta;
+        velocity *= 0.9;
+        // return;
     }
     if (player_state == PlayerState::DEFAULT) {
         Vector3 move_dir = get_movement_dir();
