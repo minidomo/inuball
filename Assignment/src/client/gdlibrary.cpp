@@ -1,4 +1,8 @@
 #include "actions/action.h"
+#include "actions/chicken/base_chicken_action.h"
+#include "actions/chicken/flock_action.h"
+#include "actions/chicken/produce_action.h"
+#include "actions/chicken/scatter_action.h"
 #include "actions/sheep/attack_action.h"
 #include "actions/sheep/base_sheep_action.h"
 #include "actions/sheep/flee_action.h"
@@ -71,4 +75,9 @@ extern "C" void GDN_EXPORT godot_nativescript_init(void *handle) {
     register_class<AttackAction>();
     register_class<FleeAction>();
     register_class<WanderAction>();
+
+    register_class<BaseChickenAction>();
+    register_class<FlockAction>();
+    register_class<ProduceAction>();
+    register_class<ScatterAction>();
 }

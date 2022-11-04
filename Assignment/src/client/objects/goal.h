@@ -94,7 +94,7 @@ class Goal : public RigidBody {
                 String::num_int64(counter->get_text().to_int() + num) + "\n");
     }
 
-    int64_t get_score(const char *object_name, int64_t &counter) {
+    void get_score(const char *object_name, int64_t &counter) {
         auto stats = GLOBALS::instance.stats_container;
         char buffer[64];
         const char *teamcolor;
@@ -106,7 +106,7 @@ class Goal : public RigidBody {
                 teamcolor = "Blue";
                 break;
             default:
-                return -1;
+                return;
         };
         snprintf(buffer, 64, "%s%s", object_name, teamcolor);
         auto counter_label = Object::cast_to<Label>(stats->get_node(buffer));
