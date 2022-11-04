@@ -4,10 +4,11 @@
 
 #include <Area.hpp>
 #include <InputEvent.hpp>
+#include <Timer.hpp>
 
 #include "../../actions/chicken/base_chicken_action.h"
 #include "../../actions/chicken/flock_action.h"
-#include "../../actions/chicken/hide_action.h"
+#include "../../actions/chicken/produce_action.h"
 #include "../../actions/chicken/scatter_action.h"
 #include "../enums/chicken_state.h"
 #include "../finite_state_machine.h"
@@ -18,13 +19,15 @@ class Chicken : public Animal<Animals::CHICKEN> {
 
     friend class BaseChickenAction;
     friend class FlockAction;
-    friend class HideAction;
+    friend class ProduceAction;
     friend class ScatterAction;
 
    private:
     Area *area;
     FiniteStateMachine *fsm;
     Array chickens;
+    bool can_breed;
+    Timer *breed_timer;
 
    public:
     static void _register_methods();

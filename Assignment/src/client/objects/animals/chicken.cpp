@@ -27,6 +27,8 @@ void Chicken::_ready() {
 
     fsm = Object::cast_to<FiniteStateMachine>(get_node("FiniteStateMachine"));
     fsm->setup(this, +ChickenState::DEFAULT);
+    can_breed = false;
+    breed_timer = nullptr;
 }
 
 void Chicken::handleLookAt(Node *player, Node *target, Vector3 point,

@@ -25,6 +25,7 @@ class FlockAction : public BaseChickenAction {
 
     virtual Vector3 steer(Vector3 tgt);
     virtual Array get_neighbors();
+    virtual bool will_collide();
 
     virtual void initialize() override;
     virtual void tick(real_t delta) override;

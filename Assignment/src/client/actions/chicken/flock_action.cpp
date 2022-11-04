@@ -8,12 +8,12 @@ void FlockAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
     Godot::print(id + ": flock action init");
 
-    MAX_SPEED = 15.0;
-    VISION = 5.0;
+    MAX_SPEED = 8.0;
+    VISION = 10.0;
 
-    ALIGN_FORCE = 0.6;
-    COHESION_FORCE = 0.6;
-    SEPERATION_FORCE = 1.0;
+    ALIGN_FORCE = 1.3;
+    COHESION_FORCE = 0.4;
+    SEPERATION_FORCE = .7;
 
     accel = Vector3(0.f, 0.f, 0.f);
 
@@ -92,34 +92,40 @@ Vector3 FlockAction::seperation(Array neighbors) {
     return steer(res.normalized() * MAX_SPEED);
 }
 
-// void FlockAction::tick(real_t delta) {
-//     Chicken *chicken = get_base_typed();
-//     Array neighbors = FlockAction::get_neighbors();
+bool FlockAction::will_collide() {
+    Chicken *chicken = get_base_typed();
+    Array bodies = chicken->area->get_overlapping_bodies();
+    for (int i = 0; i < bodies.size(); i++) {
+        Chicken *tmp = Object::cast_to<Chicken>(bodies[i]);
 
-//     accel += FlockAction::align(neighbors) * ALIGN_FORCE;
-//     accel += FlockAction::cohesion(neighbors) * COHESION_FORCE;
-//     accel += FlockAction::seperation(neighbors) * SEPERATION_FORCE;
-//     accel = Vector3(accel.x, 0, accel.z);
-
-//     chicken->velocity += accel * delta;
-//     chicken->velocity = chicken->velocity.normalized() * MAX_SPEED;
-
-//     if (!chicken->is_on_floor()) {
-//         chicken->velocity.y -= chicken->gravity * delta;
-//     }
-
-//     chicken->velocity = chicken->move_and_slide_with_snap(
-//         chicken->velocity, Vector3::DOWN, Vector3::UP);
-// }
-
-void FlockAction::tick(real_t delta) {
-    Chicken *sheep = get_base_typed();
-
-    // copied physics process for now as default behavior for wander
-    if (!sheep->is_on_floor()) {
-        sheep->velocity.y -= sheep->gravity / 10.0 * delta;
+        if (!tmp) {
+            return true;
+        }
     }
 
-    sheep->velocity = sheep->move_and_slide_with_snap(
-        sheep->velocity, Vector3::DOWN, Vector3::UP);
+    return false;
+}
+
+void FlockAction::tick(real_t delta) {
+    Chicken *chicken = get_base_typed();
+    Array neighbors = FlockAction::get_neighbors();
+
+    accel += FlockAction::align(neighbors) * ALIGN_FORCE;
+    accel += FlockAction::cohesion(neighbors) * COHESION_FORCE;
+    accel += FlockAction::seperation(neighbors) * SEPERATION_FORCE;
+    accel = Vector3(accel.x, 0, accel.z);
+
+    chicken->velocity += accel * delta;
+    chicken->velocity = chicken->velocity.normalized() * MAX_SPEED;
+
+    // if (FlockAction::will_collide()) {
+    //     chicken->velocity = -chicken->velocity;
+    // }
+
+    if (!chicken->is_on_floor()) {
+        chicken->velocity.y -= chicken->gravity * delta;
+    }
+
+    chicken->velocity = chicken->move_and_slide_with_snap(
+        chicken->velocity, Vector3::DOWN, Vector3::UP);
 }

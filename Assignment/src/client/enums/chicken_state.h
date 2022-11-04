@@ -3,8 +3,8 @@
 
 enum class ChickenState {
     DEFAULT = 0,
-    NEAR_PLAYER_OR_GOAL = 1,
-    HIDE = 2,
+    SCATTER = 1,
+    PRODUCE = 2,
 };
 
 constexpr auto operator+(ChickenState o) noexcept {

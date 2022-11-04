@@ -117,15 +117,16 @@ void CustomWorld::_ready() {
     GLOBALS::instance.goals[1] = goal2;
 
     // populate with animals
-    spawn_animal("Chicken", 20);
+    spawn_animal("Chicken", 10);
     Array children = this->get_children();
     chickens = Array();
     for (int i = 0; i < children.size(); i++) {
         Chicken* tmp = Object::cast_to<Chicken>(children[i]);
         if (tmp) {
             chickens.push_back(tmp);
-            // tmp->set_translation(Vector3(Chunk::size / 2 + idx % 5 * 2, 5,
-            //                              Chunk::size / 2 + idx / 5 * 2));
+            tmp->set_translation(
+                Vector3(Chunk::size / 2 + chickens.size() % 5 * 2, 5,
+                        Chunk::size / 2 + chickens.size() / 5 * 2));
         }
     }
     for (int i = 0; i < chickens.size(); i++) {
