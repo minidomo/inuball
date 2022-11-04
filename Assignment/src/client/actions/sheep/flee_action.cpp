@@ -166,7 +166,7 @@ float FleeAction::measure_normal_distance(Dictionary wall, Vector3 point) {
     // the distance measured should be a straight line from the wall to the
     // point so we need to adjust the wall's position which depends on its
     // normal
-    if (normal.min_axis() == Vector3::AXIS_Z) {
+    if (normal.max_axis() == Vector3::AXIS_X) {
         position.z = point.z;
     } else {
         position.x = point.x;
