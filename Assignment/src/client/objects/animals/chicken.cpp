@@ -13,6 +13,7 @@ void Chicken::_register_methods() {
     register_method("get_chickens", &Chicken::get_chickens);
     register_method("handleLookAt", &Chicken::handleLookAt);
     register_method("entered_goal", &Chicken::entered_goal);
+    register_method("set_state_pref", &Chicken::set_state_pref);
 
     register_property<Chicken, float>("Gravity", &Chicken::gravity, 50.0);
 }
@@ -29,6 +30,12 @@ void Chicken::_ready() {
     fsm->setup(this, +ChickenState::DEFAULT);
     can_breed = false;
     breed_timer = nullptr;
+    state_timer = Timer()._new();
+    state_timer->set_one_shot(true);
+    state_timer->connect("timeout", this, "set_state_pref");
+    add_child(state_timer);
+    state_pref = ChickenState::PRODUCE;
+    set_state_pref();
 }
 
 void Chicken::handleLookAt(Node *player, Node *target, Vector3 point,
@@ -56,6 +63,12 @@ void Chicken::_input(Ref<InputEvent> event) {
     }
 }
 
+void Chicken::set_state_pref() {
+    state_pref = state_pref == ChickenState::DEFAULT ? ChickenState::PRODUCE
+                                                     : ChickenState::DEFAULT;
+    state_timer->start(10.0 + (rand() / (float)RAND_MAX * 20.0));
+}
+
 void Chicken::entered_goal(Goal *goal) {
     Animal::entered_goal(goal);
     goal->score("Chicken", 5, 1);
@@ -72,19 +85,15 @@ void Chicken::_physics_process(real_t delta) {
 }
 
 int Chicken::compute_state() {
-    int state = 0;
+    int state = +state_pref;
 
-    // Array bodies = area->get_overlapping_bodies();
-    // for (int i = 0; i < bodies.size(); i++) {
-    //     Goal *goal = Object::cast_to<Goal>(bodies[i]);
-    //     Player *player = Object::cast_to<Player>(bodies[i]);
-
-    //     if (goal) {
-    //         state |= +ChickenState::NEAR_PLAYER_OR_GOAL;
-    //     } else if (player) {
-    //         state |= +ChickenState::HIDE;
-    //     }
-    // }
+    Array bodies = area->get_overlapping_bodies();
+    for (int i = 0; i < bodies.size(); i++) {
+        Player *player = Object::cast_to<Player>(bodies[i]);
+        if (player) {
+            state = +ChickenState::SCATTER;
+        }
+    }
 
     return state;
 }

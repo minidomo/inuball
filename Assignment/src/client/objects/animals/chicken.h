@@ -28,6 +28,8 @@ class Chicken : public Animal<Animals::CHICKEN> {
     Array chickens;
     bool can_breed;
     Timer *breed_timer;
+    Timer *state_timer;
+    ChickenState state_pref;
 
    public:
     static void _register_methods();
@@ -40,6 +42,8 @@ class Chicken : public Animal<Animals::CHICKEN> {
     void _physics_process(real_t t);
 
     void set_chickens(Array chickens) { this->chickens = chickens; }
+
+    void set_state_pref();
 
     Array get_chickens() { return this->chickens; }
 

@@ -124,9 +124,9 @@ void CustomWorld::_ready() {
         Chicken* tmp = Object::cast_to<Chicken>(children[i]);
         if (tmp) {
             chickens.push_back(tmp);
-            tmp->set_translation(
-                Vector3(Chunk::size / 2 + chickens.size() % 5 * 2, 5,
-                        Chunk::size / 2 + chickens.size() / 5 * 2));
+            // tmp->set_translation(
+            //     Vector3(Chunk::size / 2 + chickens.size() % 5 * 2, 5,
+            //             Chunk::size / 2 + chickens.size() / 5 * 2));
         }
     }
     for (int i = 0; i < chickens.size(); i++) {

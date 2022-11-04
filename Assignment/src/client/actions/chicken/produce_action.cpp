@@ -12,12 +12,12 @@ void ProduceAction::_register_methods() {
 
 void ProduceAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": hide action init");
+    Godot::print(id + ": produce action init");
 
     Chicken *chicken = get_base_typed();
     Timer *breed_timer = Timer()._new();
     breed_timer->set_one_shot(true);
-    breed_timer->set_wait_time(15);
+    breed_timer->set_wait_time(10);
     breed_timer->connect("timeout", this, "allow_breed");
     chicken->breed_timer = breed_timer;
     add_child(breed_timer);
@@ -35,8 +35,7 @@ void ProduceAction::try_breed() {
     for (int i = 0; i < bodies.size(); i++) {
         Chicken *tmp = Object::cast_to<Chicken>(bodies[i]);
 
-        // How the hell is this cast not implicitly done?
-        if (tmp && tmp->fsm->get_state() == (int)ChickenState::PRODUCE &&
+        if (tmp && tmp->fsm->get_state() == +ChickenState::PRODUCE &&
             tmp->can_breed) {
             chicken->can_breed = false;
             tmp->can_breed = false;

@@ -7,7 +7,7 @@ void ScatterAction::_register_methods() {}
 
 void ScatterAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": hide action init");
+    Godot::print(id + ": scatter action init");
 
     MAX_SPEED = 8.0;
 
