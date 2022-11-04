@@ -4,3 +4,4 @@
 
 [node name="FleeAction" type="Node"]
 script = ExtResource( 1 )
+max_wall_distance = 20.0

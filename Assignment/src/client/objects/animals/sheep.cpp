@@ -12,6 +12,7 @@ void Sheep::_register_methods() {
     register_method("_input", &Sheep::_input);
     register_method("handleLookAt", &Sheep::handleLookAt);
     register_method("entered_goal", &Sheep::entered_goal);
+    register_method("collide_with_player", &Sheep::collide_with_player);
 
     register_property<Sheep, float>("Gravity", &Sheep::gravity, 50.0);
 }
@@ -72,6 +73,7 @@ int Sheep::compute_state() {
     int state = 0;
 
     Array bodies = area->get_overlapping_bodies();
+    Player *found = nullptr;
     for (int i = 0; i < bodies.size(); i++) {
         Goal *goal = Object::cast_to<Goal>(bodies[i]);
         Player *player = Object::cast_to<Player>(bodies[i]);
@@ -80,8 +82,10 @@ int Sheep::compute_state() {
             state |= +SheepState::NEAR_GOAL;
         } else if (player) {
             state |= +SheepState::NEAR_PLAYER;
+            if (!found || player == chargingAt) found = player;
         }
     }
 
+    chargingAt = found;
     return state;
 }

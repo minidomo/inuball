@@ -7,32 +7,33 @@ void WanderAction::_register_methods() {}
 void WanderAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
     Godot::print(id + ": wander action init ");
+    timer = 0.0f;
 }
 
 void WanderAction::tick(real_t delta) {
+    BaseSheepAction::tick(delta);
     Sheep *sheep = get_base_typed();
 
-    // copied physics process for now as default behavior for wander
     if (!sheep->is_on_floor()) {
-        sheep->velocity.y -= sheep->gravity * delta;
+        return;
     }
 
-    sheep->velocity = sheep->move_and_slide_with_snap(
-        sheep->velocity, Vector3::DOWN, Vector3::UP);
+    auto norm3 = sheep->get_floor_normal();
 
-    Vector3 orientation = sheep->velocity;
-    orientation.y = 0;
-    orientation.normalize();
-    orientation.rotate(Vector3::UP, Math::deg2rad(90.0f));
+    Vector2 vel(sheep->velocity.x, sheep->velocity.z);
+    Vector2 norm(norm3.x, norm3.z);
 
-    if (orientation != Vector3::ZERO) {
-        Vector3 origin = sheep->get_global_transform().origin;
+    prev_noise = noise->get_noise_2d(timer, prev_noise);
 
-        // the difference between target and origin needs to be large enough
-        // so look_at works
-        float multiplier = 50;
-        Vector3 target = origin + orientation * multiplier;
+    auto rot = (prev_noise + 1) * Math_PI;
 
-        sheep->look_at(target, Vector3::UP);
-    }
+    vel = (vel * 0.9 + 0.1 * norm.rotated(rot));
+
+    vel.normalize();
+    vel *= 5;
+
+    sheep->velocity.x = vel.x;
+    sheep->velocity.z = vel.y;
+
+    timer += delta;
 }

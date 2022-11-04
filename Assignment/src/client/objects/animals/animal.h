@@ -56,6 +56,18 @@ class Animal : public KinematicBody,
         this->gravity = 50.0f;
     }
 
+    virtual void collide_with_player(Player *player) {
+        auto pv = player->velocity;
+        auto vel = this->velocity;
+
+        player->need_to_handle_collision = true;
+
+        pv.y += pv.length();
+        this->velocity = pv;
+
+        player->velocity = vel;
+    }
+
     void handleLookAt(Node *player, Node *target, Vector3 point, Vector3 normal,
                       real_t distance) override {
         if (thisnode == parent<0>(target))

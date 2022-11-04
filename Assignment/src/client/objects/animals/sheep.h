@@ -24,6 +24,7 @@ class Sheep : public Animal<Animals::SHEEP> {
    private:
     Area *area;
     FiniteStateMachine *fsm;
+    Player *chargingAt = nullptr;
 
    public:
     static void _register_methods();
@@ -37,6 +38,10 @@ class Sheep : public Animal<Animals::SHEEP> {
     void _physics_process(real_t delta);
 
     void _input(Ref<InputEvent> event);
+
+    virtual void collide_with_player(Player *player) {
+        Animal::collide_with_player(player);
+    }
 
     virtual void handleLookAt(Node *player, Node *target, Vector3 point,
                               Vector3 normal, real_t distance) override;
@@ -53,9 +58,6 @@ class Sheep : public Animal<Animals::SHEEP> {
     }
 
     virtual void entered_goal(Goal *goal) override;
-
-    void on_body_entered(Node *body);
-    void on_body_exited(Node *body);
 
     void update_action();
     int compute_state();

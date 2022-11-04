@@ -14,6 +14,7 @@ void Chicken::_register_methods() {
     register_method("handleLookAt", &Chicken::handleLookAt);
     register_method("entered_goal", &Chicken::entered_goal);
     register_method("set_state_pref", &Chicken::set_state_pref);
+    register_method("collide_with_player", &Chicken::collide_with_player);
 
     register_property<Chicken, float>("Gravity", &Chicken::gravity, 50.0);
 }

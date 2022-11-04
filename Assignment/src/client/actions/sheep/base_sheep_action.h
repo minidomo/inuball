@@ -13,6 +13,7 @@ class BaseSheepAction : public Action {
     static void _register_methods();
 
     Sheep *get_base_typed();
+    virtual void tick(real_t delta) override;
 };
 
 #endif
