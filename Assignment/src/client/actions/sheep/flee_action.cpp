@@ -26,7 +26,7 @@ void FleeAction::_init() {
 
 void FleeAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": flee action init");
+    // Godot::print(id + ": flee action init");
 }
 
 void FleeAction::tick(real_t delta) {

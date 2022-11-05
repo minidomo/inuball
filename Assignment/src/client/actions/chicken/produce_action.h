@@ -11,7 +11,6 @@ class ProduceAction : public BaseChickenAction {
     static void _register_methods();
 
     virtual void initialize() override;
-    virtual Vector3 get_collide_pos();
     virtual void allow_breed();
     virtual void try_breed();
     virtual void tick(real_t delta) override;

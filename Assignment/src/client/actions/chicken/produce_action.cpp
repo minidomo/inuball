@@ -12,7 +12,7 @@ void ProduceAction::_register_methods() {
 
 void ProduceAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": produce action init");
+    // Godot::print(id + ": produce action init");
 
     Chicken *chicken = get_base_typed();
     Timer *breed_timer = Timer()._new();
@@ -40,29 +40,12 @@ void ProduceAction::try_breed() {
             chicken->can_breed = false;
             tmp->can_breed = false;
             chicken->attemptbreed(tmp);
-            Godot::print("tried breed!");
+            // Godot::print("tried breed!");
             chicken->breed_timer->start();
             tmp->breed_timer->start();
             break;
         }
     }
-}
-
-Vector3 ProduceAction::get_collide_pos() {
-    Chicken *chicken = get_base_typed();
-    Array bodies = chicken->area->get_overlapping_bodies();
-    Vector3 res(0.f, 0.f, 0.f);
-    int count = 0;
-    for (int i = 0; i < bodies.size(); i++) {
-        Spatial *tmp = Object::cast_to<Spatial>(bodies[i]);
-
-        if (tmp) {
-            count += 1;
-            res += tmp->get_translation();
-        }
-    }
-    res /= count;
-    return res;
 }
 
 void ProduceAction::tick(real_t delta) {

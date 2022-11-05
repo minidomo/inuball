@@ -6,7 +6,7 @@ void WanderAction::_register_methods() {}
 
 void WanderAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": wander action init ");
+    // Godot::print(id + ": wander action init ");
     timer = 0.0f;
 }
 

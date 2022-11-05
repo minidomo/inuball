@@ -6,7 +6,7 @@ void FlockAction::_register_methods() {}
 
 void FlockAction::initialize() {
     String id = String::num_int64(base->get_instance_id());
-    Godot::print(id + ": flock action init");
+    // Godot::print(id + ": flock action init");
 
     MAX_SPEED = 8.0;
     VISION = 10.0;
