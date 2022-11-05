@@ -27,7 +27,7 @@ make plugin-lab
 
 3. Running the project
 
-Launch Godot and open the file, `project.godot`, located in the `Assignment/Project/` directory. Run the project!
+Launch Godot and open both `Assignment/Server/project.godot` and `Assignment/Client/project.godot`. Run the projects! On the client, connect to localhost (default), then run single player.
 
 **Note:** When opening the project in Godot, files will sometimes get modified unintentionally and may cause unintended behavior when running the project. Ensure that files are unmodified prior to running. If changes are made, restore the original files and reload changes in Godot:
 
@@ -37,5 +37,6 @@ git restore .
 
 ## Other
 
-<!-- - [Video demo](https://www.youtube.com/watch?v=gef3XDT0EJc) -->
-- [Milestone Report](/Assignment%204%20Documentation.pdf)
+- [User Manual](/Assignment%204%20User%20Manual.pdf)
+- [Assignment Report](/Assignment%204%20Report.pdf)
+- [Video demo](https://youtu.be/9uF7_9L10O0)
